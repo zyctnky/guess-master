@@ -75,7 +75,7 @@ export default function Play(props: WordList) {
         };
       });
     };
-    
+
     setLetters(resetLetters());
     setSelectedWord(getRandomWord());
   }, [props]);
@@ -137,6 +137,7 @@ export default function Play(props: WordList) {
                   description={selectedWord?.description}
                   handleShowHint={handleShowHint}
                   showHint={showHint}
+                  playerLifes={playerLifes}
                 />
               </div>
               <WordGuess
