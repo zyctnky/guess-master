@@ -1,0 +1,56 @@
+[
+  {
+    "id": "animals",
+    "name": "Animals",
+    "icon": "TbCat",
+    "readyForPlay": true
+  },
+  {
+    "id": "fruits",
+    "name": "Fruits",
+    "icon": "TbApple",
+    "readyForPlay": true
+  },
+  {
+    "id": "cities",
+    "name": "Cities",
+    "icon": "TbBuilding",
+    "readyForPlay": true
+  },
+  {
+    "id": "foods",
+    "name": "Foods",
+    "icon": "TbBrandCakephp",
+    "readyForPlay": false
+  },
+  {
+    "id": "colors",
+    "name": "Colors",
+    "icon": "TbColorSwatch",
+    "readyForPlay": false
+  },
+  {
+    "id": "occupations",
+    "name": "Occupations",
+    "icon": "TbChefHat",
+    "readyForPlay": false
+  },
+  {
+    "id": "vegetables",
+    "name": "Vegetables",
+    "icon": "TbCarrot",
+    "readyForPlay": false
+  },
+  {
+    "id": "countries",
+    "name": "Countries",
+    "icon": "TbMap2",
+    "readyForPlay": false
+  },
+  {
+    "id": "sports",
+    "name": "Sports",
+    "icon": "TbBallAmericanFootball",
+    "readyForPlay": false
+  }
+]

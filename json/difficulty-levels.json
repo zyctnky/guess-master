@@ -1,0 +1,5 @@
+[
+  { "id": "easy", "name": "Easy", "icon": "TbMoodSmile" },
+  { "id": "middle", "name": "Middle", "icon": "TbMoodEmpty" },
+  { "id": "hard", "name": "Hard", "icon": "TbMoodAngry" }
+]
