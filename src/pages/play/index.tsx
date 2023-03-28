@@ -68,7 +68,7 @@ export default function Play(props: WordList) {
 
   useEffect(() => {
     setSelectedWord(getRandomWord());
-  }, [getRandomWord]);
+  }, []);
 
   const handleGuessLatter = (letter: string) => {
     setLetterAsGuessed();
