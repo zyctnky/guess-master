@@ -5,12 +5,14 @@ export default function Home() {
   return (
     <>
       <LayoutMain>
-        <Link
-          href="/start"
-          className="bg-teal-600 px-9 py-2 my-10 text-white rounded-md shadow-lg outline-none"
-        >
-          Start Game
-        </Link>
+        <>
+          <Link
+            href="/start"
+            className="bg-teal-600 px-9 py-2 my-10 text-white rounded-md shadow-lg outline-none"
+          >
+            Start Game
+          </Link>
+        </>
         <span className="text-sm font-semibold">v1.0.0</span>
       </LayoutMain>
     </>

@@ -12,11 +12,11 @@ export default function WordHint(props: WordHintProps) {
     <>
       {!props.showHint && props.playerLifes > 2 ? (
         <TiLightbulb
-          className="border rounded-md px-1 bg-indigo-600 text-white h-10 w-10 cursor-pointer"
+          className="border rounded-md px-1 bg-indigo-600 text-white h-8 w-8 cursor-pointer"
           onClick={props.handleShowHint}
         />
       ) : (
-        <TiLightbulb className="border rounded-md px-1 bg-indigo-300 text-white h-10 w-10" />
+        <TiLightbulb className="border rounded-md px-1 bg-indigo-300 text-white h-8 w-8" />
       )}
     </>
   );

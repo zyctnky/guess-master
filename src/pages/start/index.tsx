@@ -65,7 +65,7 @@ export default function SelectCategory(props: StartGameResponse) {
         {selectedCategory && selectedDifficultyLevel && (
           <Link
             href={`/play?c=${selectedCategory.id}&dl=${selectedDifficultyLevel.id}`}
-            className="bg-indigo-600 text-white rounded-lg p-3 cursor-pointer"
+            className="bg-indigo-600 text-white rounded-lg p-3 md:w-1/4 w-3/4 text-center cursor-pointer"
           >
             Start Game
           </Link>
