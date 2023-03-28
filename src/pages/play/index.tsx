@@ -67,6 +67,16 @@ export default function Play(props: WordList) {
       }
     };
 
+    const resetLetters = () => {
+      return allLetters.map((letter) => {
+        return {
+          char: letter.char,
+          guessed: false,
+        };
+      });
+    };
+    
+    setLetters(resetLetters());
     setSelectedWord(getRandomWord());
   }, [props]);
 
