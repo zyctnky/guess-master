@@ -57,18 +57,18 @@ export default function Play(props: WordList) {
   const [showHint, setShowHint] = useState(false);
   const [playerWin, setPlayerWin] = useState(false);
 
-  const getRandomWord = () => {
-    const wordList: WordList = props;
-
-    if (wordList.words) {
-      var randomIndex = Math.floor(Math.random() * wordList?.words.length);
-      return wordList?.words[randomIndex];
-    }
-  };
-
   useEffect(() => {
+    const getRandomWord = () => {
+      const wordList: WordList = props;
+
+      if (wordList.words) {
+        var randomIndex = Math.floor(Math.random() * wordList?.words.length);
+        return wordList?.words[randomIndex];
+      }
+    };
+
     setSelectedWord(getRandomWord());
-  }, []);
+  }, [props]);
 
   const handleGuessLatter = (letter: string) => {
     setLetterAsGuessed();
