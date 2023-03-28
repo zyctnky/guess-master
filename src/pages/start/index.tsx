@@ -13,14 +13,14 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 const fetchCategories = async () => {
-  const res = await fetch("http://localhost:3000/api/categories");
+  const res = await fetch("https://guess-master.vercel.app/api/categories");
   const data = await res.json();
   const result: Category[] = data.data;
   return result;
 };
 
 const fetchDifficultyLevels = async () => {
-  const res = await fetch("http://localhost:3000/api/difficulty-levels");
+  const res = await fetch("https://guess-master.vercel.app/api/difficulty-levels");
   const data = await res.json();
   const result: Category[] = data.data;
   return result;

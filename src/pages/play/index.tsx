@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { c, dl } = query;
 
   const res = await fetch(
-    `http://localhost:3000/api/words?category=${c}&difficultyLevel=${dl}`
+    `https://guess-master.vercel.app/api/words?category=${c}&difficultyLevel=${dl}`
   );
   const data = await res.json();
   const result: WordList = data.data;
