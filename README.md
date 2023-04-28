@@ -9,6 +9,15 @@ In this first version, the words are taken from JSON files. In future versions, 
 
 You can try the game by clicking [here](https://guess-master.vercel.app).
 
+In the future, I plan to implement several enhancements to Guess Master, which I will share with you below:
+
+- To ensure the safety and security of the data, including words and categories, I will develop a backend structure for the game.
+- To allow users to track their progress and improve their performance, an authentication feature will be added that records past games.
+- To create a competitive atmosphere and motivate users to play more, a scoring system will be established based on the challenges completed by users. This scoring system will be accompanied by a leaderboard that displays the top players.
+- To offer users more customization options and improve their experience, a settings section will be added that allows for interface customization.
+
+These upcoming features will further enhance Guess Master's gameplay and provide users with a more personalized experience.
+
 ### Installation and usage
 
 First, run the development server:
