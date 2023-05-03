@@ -8,6 +8,10 @@ import { Letter, Word, WordList } from "@/interfaces/interfaces";
 import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
 
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../api/auth/[...nextauth]";
+import Header from "@/containers/Header/Header";
+
 const allLetters: Letter[] = [
   { char: "A", guessed: false },
   { char: "B", guessed: false },
@@ -37,8 +41,15 @@ const allLetters: Letter[] = [
   { char: "Z", guessed: false },
 ];
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { c, dl } = query;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  if (!session) {
+    return {
+      redirect: { destination: "/?callbackurl=/start", permanent: false },
+    };
+  }
+
+  const { c, dl } = context.query;
 
   const res = await fetch(
     `https://guess-master.vercel.app/api/words?category=${c}&difficultyLevel=${dl}`
@@ -94,8 +105,7 @@ export default function Play(props: WordList) {
         for (let i = 0; i < selectedWord?.word.length; i++) {
           if (
             guessedLetters.findIndex(
-              (gl) =>
-                gl.char.toLowerCase() === selectedWord.word[i].toLowerCase()
+              (gl) => gl.char.toLowerCase() === selectedWord.word[i].toLowerCase()
             ) <= -1
           )
             return false;
@@ -126,6 +136,7 @@ export default function Play(props: WordList) {
   return (
     <>
       <LayoutMain>
+        <Header />
         {playerLifes > 0 ? (
           playerWin ? (
             <Result win={true} selectedWord={selectedWord} />
@@ -146,10 +157,7 @@ export default function Play(props: WordList) {
                 showHint={showHint}
                 category={props.category}
               />
-              <LetterGuesList
-                letters={letters}
-                handleGuessLatter={handleGuessLatter}
-              />
+              <LetterGuesList letters={letters} handleGuessLatter={handleGuessLatter} />
             </>
           )
         ) : (

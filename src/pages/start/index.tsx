@@ -3,14 +3,14 @@ import SelectCategoryList from "@/containers/SelectCategory/SelectCategoryList";
 import SelectCategoryListItem from "@/containers/SelectCategory/SelectCategoryListItem";
 import SelectDifficulty from "@/containers/SelectDifficulty/SelectDifficulty";
 import SelectDifficultyItem from "@/containers/SelectDifficulty/SelectDifficultyItem";
-import {
-  Category,
-  DifficultyLevel,
-  StartGameResponse,
-} from "@/interfaces/interfaces";
+import { Category, DifficultyLevel, StartGameResponse } from "@/interfaces/interfaces";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import React, { useState } from "react";
+
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../api/auth/[...nextauth]";
+import Header from "@/containers/Header/Header";
 
 const fetchCategories = async () => {
   const res = await fetch("https://guess-master.vercel.app/api/categories");
@@ -26,7 +26,14 @@ const fetchDifficultyLevels = async () => {
   return result;
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  if (!session) {
+    return {
+      redirect: { destination: "/?callbackurl=/start", permanent: false },
+    };
+  }
+
   const categories = await fetchCategories();
   const difficultyLevels = await fetchDifficultyLevels();
   return {
@@ -36,12 +43,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 export default function SelectCategory(props: StartGameResponse) {
   const [selectedCategory, setSelectedCategory] = useState<Category>();
-  const [selectedDifficultyLevel, setSelectedDifficultyLevel] =
-    useState<DifficultyLevel>();
+  const [selectedDifficultyLevel, setSelectedDifficultyLevel] = useState<DifficultyLevel>();
 
   return (
     <>
       <LayoutMain>
+        <Header />
         <SelectDifficulty>
           {props.difficultyLevels.map((difficultyLevel) => (
             <SelectDifficultyItem
