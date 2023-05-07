@@ -3,54 +3,63 @@
     "id": "animals",
     "name": "Animals",
     "icon": "TbCat",
-    "readyForPlay": true
+    "readyForPlay": true,
+    "baseColor": "orange"
   },
   {
     "id": "fruits",
     "name": "Fruits",
     "icon": "TbApple",
-    "readyForPlay": true
+    "readyForPlay": true,
+    "baseColor": "lime"
   },
   {
     "id": "cities",
     "name": "Cities",
     "icon": "TbBuilding",
-    "readyForPlay": true
+    "readyForPlay": true,
+    "baseColor": "emerald"
   },
   {
     "id": "foods",
     "name": "Foods",
     "icon": "TbBrandCakephp",
-    "readyForPlay": false
+    "readyForPlay": false,
+    "baseColor": "cyan"
   },
   {
     "id": "colors",
     "name": "Colors",
     "icon": "TbColorSwatch",
-    "readyForPlay": false
+    "readyForPlay": false,
+    "baseColor": "violet"
   },
   {
     "id": "occupations",
     "name": "Occupations",
     "icon": "TbChefHat",
-    "readyForPlay": false
+    "readyForPlay": false,
+    "baseColor": "pink"
   },
   {
     "id": "vegetables",
     "name": "Vegetables",
     "icon": "TbCarrot",
-    "readyForPlay": false
+    "readyForPlay": false,
+    "baseColor": "fuchsia"
   },
   {
     "id": "countries",
     "name": "Countries",
     "icon": "TbMap2",
-    "readyForPlay": false
+    "readyForPlay": false,
+    "baseColor": "sky"
   },
   {
     "id": "sports",
     "name": "Sports",
     "icon": "TbBallAmericanFootball",
-    "readyForPlay": false
+    "readyForPlay": false,
+    "baseColor": "rose"
   }
 ]

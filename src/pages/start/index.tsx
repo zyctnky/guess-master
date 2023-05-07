@@ -1,8 +1,6 @@
 import LayoutMain from "@/containers/LayoutMain/LayoutMain";
 import SelectCategoryList from "@/containers/SelectCategory/SelectCategoryList";
-import SelectCategoryListItem from "@/containers/SelectCategory/SelectCategoryListItem";
 import SelectDifficulty from "@/containers/SelectDifficulty/SelectDifficulty";
-import SelectDifficultyItem from "@/containers/SelectDifficulty/SelectDifficultyItem";
 import { Category, DifficultyLevel, StartGameResponse } from "@/interfaces/interfaces";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
@@ -22,7 +20,7 @@ const fetchCategories = async () => {
 const fetchDifficultyLevels = async () => {
   const res = await fetch("https://guess-master.vercel.app/api/difficulty-levels");
   const data = await res.json();
-  const result: Category[] = data.data;
+  const result: DifficultyLevel[] = data.data;
   return result;
 };
 
@@ -42,40 +40,38 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default function SelectCategory(props: StartGameResponse) {
-  const [selectedCategory, setSelectedCategory] = useState<Category>();
-  const [selectedDifficultyLevel, setSelectedDifficultyLevel] = useState<DifficultyLevel>();
+  const [selectedCategory, setSelectedCategory] = useState<Category>(props.categories[0]);
+  const [selectedDifficultyLevel, setSelectedDifficultyLevel] = useState<DifficultyLevel>(
+    props.difficultyLevels[0]
+  );
 
   return (
     <>
       <LayoutMain>
         <Header />
-        <SelectDifficulty>
-          {props.difficultyLevels.map((difficultyLevel) => (
-            <SelectDifficultyItem
-              key={difficultyLevel.id}
-              difficultyLevel={difficultyLevel}
-              isSelected={selectedDifficultyLevel === difficultyLevel}
-              onClick={() => setSelectedDifficultyLevel(difficultyLevel)}
-            />
-          ))}
-        </SelectDifficulty>
-        <SelectCategoryList>
-          {props.categories.map((category) => (
-            <SelectCategoryListItem
-              key={category.id}
-              category={category}
-              isSelected={selectedCategory === category}
-              onClick={() => setSelectedCategory(category)}
-            />
-          ))}
-        </SelectCategoryList>
+        <SelectDifficulty
+          difficultyLevels={props.difficultyLevels}
+          difficultyLevel={selectedDifficultyLevel}
+          setDifficultyLevel={setSelectedDifficultyLevel}
+        />
+        <SelectCategoryList
+          categories={props.categories}
+          category={selectedCategory}
+          setCategory={setSelectedCategory}
+        />
         {selectedCategory && selectedDifficultyLevel && (
-          <Link
-            href={`/play?c=${selectedCategory.id}&dl=${selectedDifficultyLevel.id}`}
-            className="bg-indigo-600 text-white rounded-lg p-3 cursor-pointer"
-          >
-            Start Game
-          </Link>
+          <>
+            {selectedCategory.readyForPlay ? (
+              <Link
+                href={`/play?c=${selectedCategory.id}&dl=${selectedDifficultyLevel.id}`}
+                className="bg-indigo-600 text-white rounded-lg p-3 cursor-pointer hover:scale-105 w-40 text-center"
+              >
+                Start Game
+              </Link>
+            ) : (
+              <div className="bg-red-600 text-white rounded-lg p-3 w-40 text-center">Very Soon</div>
+            )}
+          </>
         )}
       </LayoutMain>
     </>

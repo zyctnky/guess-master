@@ -3,36 +3,33 @@ import { Category } from "@/interfaces/interfaces";
 
 type SelectCategoryListItemProps = {
   category: Category;
-  onClick: () => Promise<void> | void;
-  isSelected: boolean;
 };
 
 export default function SelectCategoryListItem(props: SelectCategoryListItemProps) {
+  const colorVariants = {
+    orange: "bg-orange-200 text-orange-800",
+    lime: "bg-lime-200 text-lime-800",
+    emerald: "bg-emerald-200 text-emerald-800",
+    cyan: "bg-cyan-200 text-cyan-800",
+    violet: "bg-violet-200 text-violet-800",
+    pink: "bg-pink-200 text-pink-800",
+    fuchsia: "bg-fuchsia-200 text-fuchsia-800",
+    sky: "bg-sky-200 text-sky-800",
+    rose: "bg-rose-200 text-rose-800",
+  };
+
   return (
     <>
-      {props.category.readyForPlay ? (
-        <div
-          className={`flex flex-col items-center border rounded-lg shadow p-3 gap-2 cursor-pointer hover:scale-105 ${
-            props.isSelected ? "bg-indigo-600 text-white" : "hover:bg-slate-200"
-          } `}
-          onClick={props.onClick}
-        >
-          <span className="md:text-4xl text-3xl">
-            <GmIcon icon={props.category.icon} />
-          </span>
-          <span className="text-sm">{props.category.name}</span>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center border rounded-lg shadow gap-2">
-          <span className="text-xs bg-red-500 w-full text-center rounded-t text-white py-1">
-            VERY SOON
-          </span>
-          <span className="md:text-4xl text-3xl text-slate-400">
-            <GmIcon icon={props.category.icon} />
-          </span>
-          <span className="text-sm mb-2 text-slate-400">{props.category.name}</span>
-        </div>
-      )}
+      <div
+        className={`flex flex-col items-center justify-between rounded-xl shadow py-2 px-5 gap-2 w-40 ${
+          colorVariants[props.category.baseColor]
+        }`}
+      >
+        <span className="text-2xl">
+          <GmIcon icon={props.category.icon} size={64} />
+        </span>
+        <span className="text-lg">{props.category.name}</span>
+      </div>
     </>
   );
 }

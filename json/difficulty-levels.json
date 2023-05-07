@@ -1,5 +1,20 @@
 [
-  { "id": "easy", "name": "Easy", "icon": "TbMoodSmile" },
-  { "id": "middle", "name": "Middle", "icon": "TbMoodEmpty" },
-  { "id": "hard", "name": "Hard", "icon": "TbMoodAngry" }
+  {
+    "id": "easy",
+    "name": "Easy",
+    "icon": "TbMoodSmile",
+    "baseColor": "green"
+  },
+  {
+    "id": "middle",
+    "name": "Middle",
+    "icon": "TbMoodEmpty",
+    "baseColor": "amber"
+  },
+  {
+    "id": "hard",
+    "name": "Hard",
+    "icon": "TbMoodAngry",
+    "baseColor": "red"
+  }
 ]

@@ -52,7 +52,7 @@ export default function Home() {
           </div>
         )}
 
-        <span className="text-sm font-semibold">v1.1.0</span>
+        <span className="text-sm font-semibold">v1.2.0</span>
       </LayoutMain>
     </>
   );

@@ -29,7 +29,7 @@ export default function GmIcon(props: GmIconProps) {
       {props.icon === "TbColorSwatch" && <TbColorSwatch size={props.size} />}
       {props.icon === "TbChefHat" && <TbChefHat size={props.size} />}
       {props.icon === "TbCarrot" && <TbCarrot size={props.size} />}
-      {props.icon === "TbMap2" && <TbMap2 />}
+      {props.icon === "TbMap2" && <TbMap2 size={props.size} />}
       {props.icon === "TbBallAmericanFootball" && <TbBallAmericanFootball size={props.size} />}
       {props.icon === "TbMoodSmile" && <TbMoodSmile size={props.size} />}
       {props.icon === "TbMoodEmpty" && <TbMoodEmpty size={props.size} />}

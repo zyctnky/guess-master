@@ -4,23 +4,26 @@ import React from "react";
 
 type SelectDifficultyItemProps = {
   difficultyLevel: DifficultyLevel;
-  onClick: () => Promise<void> | void;
-  isSelected: boolean;
 };
 
 export default function SelectDifficultyItem(props: SelectDifficultyItemProps) {
+  const colorVariants = {
+    green: "bg-green-200 text-green-800",
+    amber: "bg-amber-200 text-amber-800",
+    red: "bg-red-200 text-red-800",
+  };
+
   return (
     <>
       <div
-        className={`flex items-center justify-between border rounded-lg shadow py-2 px-3 w-full gap-2 cursor-pointer hover:scale-105 ${
-          props.isSelected ? "bg-indigo-600 text-white" : "hover:bg-slate-200"
-        } `}
-        onClick={props.onClick}
+        className={`flex flex-col items-center justify-between rounded-xl shadow-xl w-40 py-2 px-5 gap-2 ${
+          colorVariants[props.difficultyLevel.baseColor]
+        }`}
       >
         <span className="text-2xl">
-          <GmIcon icon={props.difficultyLevel.icon} />
+          <GmIcon icon={props.difficultyLevel.icon} size={64} />
         </span>
-        <span className="text-sm">{props.difficultyLevel.name}</span>
+        <span className="text-lg">{props.difficultyLevel.name}</span>
       </div>
     </>
   );

@@ -6,6 +6,10 @@ import type { Session } from "next-auth";
 import Head from "next/head";
 import "@/styles/globals.css";
 
+import { Rubik } from "next/font/google";
+
+const rubik = Rubik({ weight: "400", subsets: ["latin"] });
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -19,7 +23,9 @@ export default function App({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <main className={rubik.className}>
+          <Component {...pageProps} />
+        </main>
       </SessionProvider>
     </>
   );
