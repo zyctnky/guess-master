@@ -4,12 +4,23 @@ export interface Letter {
 }
 
 export interface WordList {
-  category: string;
-  level: string;
   words: Word[];
 }
 
 export interface Word {
+  id: String;
+  categoryId: String;
+  difficultyLevelId: String;
+  word: string;
+  description: string;
+}
+
+export interface RandomWord {
+  id: String;
+  categoryId: String;
+  categoryName?: String;
+  difficultyLevelId: String;
+  difficultyLevelName?: String;
   word: string;
   description: string;
 }
@@ -19,23 +30,19 @@ export interface Category {
   name: string;
   icon: string;
   readyForPlay: boolean;
-  baseColor:
-    | "orange"
-    | "lime"
-    | "emerald"
-    | "cyan"
-    | "violet"
-    | "pink"
-    | "fuchsia"
-    | "sky"
-    | "rose";
+  baseColor: string;
 }
 
 export interface DifficultyLevel {
   id: string;
   name: string;
   icon: string;
-  baseColor: "green" | "amber" | "red";
+  baseColor: string;
+}
+
+export interface Game {
+  category: Category;
+  difficultyLevel: DifficultyLevel;
 }
 
 export interface StartGameResponse {

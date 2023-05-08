@@ -10,7 +10,7 @@ type WordHintProps = {
 export default function WordHint(props: WordHintProps) {
   return (
     <>
-      {!props.showHint && props.playerLifes > 2 ? (
+      {!props.showHint ? (
         <TiLightbulb
           className="border rounded-md px-1 bg-indigo-600 text-white h-10 w-10 cursor-pointer"
           onClick={props.handleShowHint}

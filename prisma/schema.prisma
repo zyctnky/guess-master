@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  baseColor    String?
+  color        String?
+  icon         String
+  name         String
+  readyForPlay Boolean
+}
+
+model DifficultyLevel {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  baseColor String
+  icon      String
+  name      String
+}
+
+model Word {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId        String @db.ObjectId
+  description       String
+  difficultyLevelId String @db.ObjectId
+  word              String
+}
