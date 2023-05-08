@@ -23,7 +23,7 @@ export default function Result(props: ResultProps) {
             <span className="text-4xl font-extrabold rounded-lg w-3/4 text-center pt-2">
               {props.selectedWord?.word.toUpperCase()}
             </span>
-            <span className="text-center mb-3 italic">"{props.selectedWord?.description}"</span>
+            <span className="text-center mb-3 italic">{props.selectedWord?.description}</span>
             <span className="font-bold text-2xl mb-3">You win!</span>
             <Link
               href="/start"
@@ -38,7 +38,7 @@ export default function Result(props: ResultProps) {
             <span className="text-4xl font-extrabold rounded-lg w-3/4 text-center pt-2">
               {props.selectedWord?.word.toUpperCase()}
             </span>
-            <span className="text-center mb-3 italic">"{props.selectedWord?.description}"</span>
+            <span className="text-center mb-3 italic">{props.selectedWord?.description}</span>
             <span className="font-bold text-2xl mb-3">You lose!</span>
             <Link
               href="/start"
