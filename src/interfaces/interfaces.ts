@@ -30,14 +30,23 @@ export interface Category {
   name: string;
   icon: string;
   readyForPlay: boolean;
-  baseColor: string;
+  baseColor:
+    | "orange"
+    | "lime"
+    | "emerald"
+    | "cyan"
+    | "violet"
+    | "pink"
+    | "fuchsia"
+    | "sky"
+    | "rose";
 }
 
 export interface DifficultyLevel {
   id: string;
   name: string;
   icon: string;
-  baseColor: string;
+  baseColor: "green" | "red" | "amber";
 }
 
 export interface Game {
