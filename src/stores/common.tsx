@@ -41,7 +41,7 @@ export function GameStoreProvider({ children }: { children: ReactNode }) {
   const initApp = async () => {
     try {
       setGameStartLoading(true);
-      const res = await fetch("http://localhost:3000/api/start-game");
+      const res = await fetch("https://guess-master.vercel.app/api/start-game");
       const data = await res.json();
       const startGame: StartGameResponse = data.data;
       setCategories(startGame.categories);

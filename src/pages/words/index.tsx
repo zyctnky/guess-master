@@ -27,7 +27,7 @@ export default function Words() {
     const fetchWords = async () => {
       setIsLoadingWords(true);
       const res = await fetch(
-        `http://localhost:3000/api/words/all?category=${selectedCategory.id}&difficultyLevel=${selectedDifficultyLevel.id}`
+        `https://guess-master.vercel.app/api/words/all?category=${selectedCategory.id}&difficultyLevel=${selectedDifficultyLevel.id}`
       );
       const data = await res.json();
       setWords(data.data);

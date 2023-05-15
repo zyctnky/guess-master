@@ -76,7 +76,7 @@ export default function Play() {
     const fetchRandomWord = async () => {
       setIsLoading(true);
       const res = await fetch(
-        `http://localhost:3000/api/words/random?category=${selectedCategory.id}&difficultyLevel=${selectedDifficultyLevel.id}`,
+        `https://guess-master.vercel.app/api/words/random?category=${selectedCategory.id}&difficultyLevel=${selectedDifficultyLevel.id}`,
         {
           headers: {
             "Content-Type": "application/json",

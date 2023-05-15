@@ -21,7 +21,7 @@ export default function Result(props: ResultProps) {
 
   const handleSaveAsLearned = async () => {
     setIsLoading(true);
-    const res = await fetch("http://localhost:3000/api/words/learned", {
+    const res = await fetch("https://guess-master.vercel.app/api/words/learned", {
       method: "POST",
       body: JSON.stringify(props.selectedWord),
       headers: {
