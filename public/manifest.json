@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "short_name": "Game Master",
-  "name": "Game Master",
+  "short_name": "Guess Master",
+  "name": "Guess Master",
   "description": "Can you guess the word before you run out of lives?",
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
