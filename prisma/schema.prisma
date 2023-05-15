@@ -14,6 +14,7 @@ model Category {
   icon         String
   name         String
   readyForPlay Boolean
+  Words        Word[]
 }
 
 model DifficultyLevel {
@@ -21,12 +22,16 @@ model DifficultyLevel {
   baseColor String
   icon      String
   name      String
+  Words     Word[]
 }
 
 model Word {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  categoryId        String @db.ObjectId
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId        String          @db.ObjectId
+  category          Category        @relation(fields: [categoryId], references: [id])
   description       String
-  difficultyLevelId String @db.ObjectId
+  difficultyLevelId String          @db.ObjectId
+  difficultyLevel   DifficultyLevel @relation(fields: [difficultyLevelId], references: [id])
   word              String
+  learnedUsers      String[]
 }

@@ -1,28 +1,25 @@
-import { Dispatch, SetStateAction } from "react";
-import { DifficultyLevel } from "@/interfaces/interfaces";
-import { TbArrowBadgeLeft, TbArrowBadgeRight } from "react-icons/tb";
+import { useContext } from "react";
 import { motion } from "framer-motion";
+import { TbArrowBadgeLeft, TbArrowBadgeRight } from "react-icons/tb";
+
 import SelectDifficultyItem from "./SelectDifficultyItem";
+import { GameStoreContext } from "@/stores/common";
 
-type SelectDifficultyProps = {
-  difficultyLevels: DifficultyLevel[];
-  difficultyLevel: DifficultyLevel;
-  setDifficultyLevel: Dispatch<SetStateAction<DifficultyLevel>>;
-};
+export default function SelectDifficulty() {
+  const { difficultyLevels, selectedDifficultyLevel, setSelectedDifficultyLevel } =
+    useContext(GameStoreContext);
 
-export default function SelectDifficulty(props: SelectDifficultyProps) {
   const previousDifficultyLevel = () => {
-    const selectedIndex = props.difficultyLevels.indexOf(props.difficultyLevel);
-    console.log(props);
+    const selectedIndex = difficultyLevels.indexOf(selectedDifficultyLevel);
     if (selectedIndex === 0)
-      props.setDifficultyLevel(props.difficultyLevels[props.difficultyLevels.length - 1]);
-    else props.setDifficultyLevel(props.difficultyLevels[selectedIndex - 1]);
+      setSelectedDifficultyLevel(difficultyLevels[difficultyLevels.length - 1]);
+    else setSelectedDifficultyLevel(difficultyLevels[selectedIndex - 1]);
   };
   const nextDifficultyLevel = () => {
-    const selectedIndex = props.difficultyLevels.indexOf(props.difficultyLevel);
-    if (selectedIndex === props.difficultyLevels.length - 1)
-      props.setDifficultyLevel(props.difficultyLevels[0]);
-    else props.setDifficultyLevel(props.difficultyLevels[selectedIndex + 1]);
+    const selectedIndex = difficultyLevels.indexOf(selectedDifficultyLevel);
+    if (selectedIndex === difficultyLevels.length - 1)
+      setSelectedDifficultyLevel(difficultyLevels[0]);
+    else setSelectedDifficultyLevel(difficultyLevels[selectedIndex + 1]);
   };
 
   return (
@@ -40,9 +37,9 @@ export default function SelectDifficulty(props: SelectDifficultyProps) {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0, 0.71, 0.2, 1.01] }}
-            key={props.difficultyLevel.id}
+            key={selectedDifficultyLevel.id}
           >
-            <SelectDifficultyItem difficultyLevel={props.difficultyLevel} />
+            <SelectDifficultyItem />
           </motion.div>
           <div
             className="rounded-full  bg-stone-100 text-stone-800 shadow-md  cursor-pointer hover:scale-110"

@@ -1,9 +1,10 @@
-import GmIcon from "./GmIcon";
 import Link from "next/link";
+
+import GmIcon from "./GmIcon";
 
 type GmButtonProps = {
   href?: string;
-  onClick?: () => {};
+  onClick?: () => void;
   text: string;
   icon?: string;
   bgColor?: string;

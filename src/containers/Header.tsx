@@ -1,7 +1,5 @@
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { TbLogout } from "react-icons/tb";
-import { signOut } from "next-auth/react";
 
 function Header() {
   const { data: session } = useSession();
@@ -22,13 +20,10 @@ function Header() {
                 />
               </div>
             )}
-            <span>{session.user?.name}</span>
-          </div>
-          <div
-            className="bg-red-600 text-white flex items-center justify-center rounded-full cursor-pointer h-10 w-10 hover:scale-105 hover:shadow-xl"
-            onClick={() => signOut()}
-          >
-            <TbLogout size={24} />
+            <div className="flex flex-col">
+              <span>{session.user?.name}</span>
+              <span className="text-xs text-gray-400">{session.user?.email}</span>
+            </div>
           </div>
         </div>
       </div>

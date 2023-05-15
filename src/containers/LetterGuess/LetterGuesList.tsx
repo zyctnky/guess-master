@@ -1,5 +1,4 @@
 import { Letter } from "@/interfaces/interfaces";
-import React from "react";
 import LetterGuesListItem from "./LetterGuesListItem";
 
 type LetterGuesListProps = {

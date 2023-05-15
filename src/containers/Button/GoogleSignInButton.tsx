@@ -1,6 +1,7 @@
-import GmButton from "@/components/GmButton";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+
+import GmButton from "@/components/GmButton";
 
 function GoogleSignInButton() {
   const searchParams = useSearchParams();

@@ -1,6 +1,8 @@
-import { Letter, Word } from "@/interfaces/interfaces";
 import { motion } from "framer-motion";
-import React from "react";
+
+import { Word } from "@prisma/client";
+
+import { Letter } from "@/interfaces/interfaces";
 
 type WordGuessProps = {
   selectedWord?: Word;

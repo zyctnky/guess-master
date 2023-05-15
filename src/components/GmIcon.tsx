@@ -12,6 +12,9 @@ import {
   TbMoodAngry,
   TbMoodEmpty,
   TbMoodSmile,
+  TbBookmarks,
+  TbLanguage,
+  TbLogout
 } from "react-icons/tb";
 
 type GmIconProps = {
@@ -35,6 +38,9 @@ export default function GmIcon(props: GmIconProps) {
       {props.icon === "TbMoodEmpty" && <TbMoodEmpty size={props.size} />}
       {props.icon === "TbMoodAngry" && <TbMoodAngry size={props.size} />}
       {props.icon === "FcGoogle" && <FcGoogle size={props.size} />}
+      {props.icon === "TbBookmarks" && <TbBookmarks size={props.size} />}
+      {props.icon === "TbLanguage" && <TbLanguage size={props.size} />}
+      {props.icon === "TbLogout" && <TbLogout size={props.size} />}
     </>
   );
 }

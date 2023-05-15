@@ -10,10 +10,10 @@ export default function PlayerLife(props: PlayerLifeProps) {
   const generateStars = () => {
     let content = [];
     for (let i = 0; i < props.remainingLifes; i++) {
-      content.push(<TiHeartFullOutline className="text-indigo-600" key={i} />);
+      content.push(<TiHeartFullOutline className="text-indigo-500" key={i} />);
     }
     for (let i = 5; i < totalLife - props.remainingLifes + 5; i++) {
-      content.push(<TiHeartOutline className="text-indigo-600" key={i} />);
+      content.push(<TiHeartOutline className="text-indigo-500" key={i} />);
     }
     return content;
   };

@@ -1,5 +1,4 @@
 import { Letter } from "@/interfaces/interfaces";
-import React from "react";
 
 type LetterGuesListItemProps = {
   letter: Letter;
@@ -12,7 +11,7 @@ export default function LetterGuesListItem(props: LetterGuesListItemProps) {
       {props.letter.guessed ? (
         <div
           key={props.letter.char}
-          className="shadow font-semibold rounded-lg w-12 h-12 md:w-16 md:h-16 text-2xl md:text-3xl bg-indigo-600 text-white flex items-center justify-center"
+          className="shadow font-semibold rounded-lg w-12 h-12 md:w-16 md:h-16 text-2xl md:text-3xl bg-indigo-500 text-white flex items-center justify-center"
         >
           {props.letter.char}
         </div>

@@ -1,16 +1,21 @@
-import LayoutMain from "@/containers/LayoutMain/LayoutMain";
+import LayoutMain from "@/containers/LayoutMain";
 import LetterGuesList from "@/containers/LetterGuess/LetterGuesList";
-import PlayerLife from "@/containers/PlayerLife/PlayerLife";
-import Result from "@/containers/Result/Result";
-import WordGuess from "@/containers/WordGuess/WordGuess";
-import WordHint from "@/containers/WordHint/WordHint";
-import { Letter, RandomWord, Word } from "@/interfaces/interfaces";
-import { GetServerSideProps } from "next";
-import React, { useEffect, useState } from "react";
+import PlayerLife from "@/containers/PlayerLife";
+import Result from "@/containers/Result";
+import WordGuess from "@/containers/WordGuess";
+import WordHint from "@/containers/WordHint";
+import React, { useContext, useEffect, useState } from "react";
 
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../api/auth/[...nextauth]";
-import Header from "@/containers/Header/Header";
+import { Prisma } from "@prisma/client";
+import { ApiResult } from "@/interfaces/interfaces";
+import GmLoading from "@/components/GmLoading";
+import AllWordsLearned from "@/containers/AllWordsLearned";
+import { GameStoreContext } from "@/stores/common";
+
+interface Letter {
+  char: string;
+  guessed: boolean;
+}
 
 const allLetters: Letter[] = [
   { char: "A", guessed: false },
@@ -41,30 +46,21 @@ const allLetters: Letter[] = [
   { char: "Z", guessed: false },
 ];
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
-  if (!session) {
-    return {
-      redirect: { destination: "/?callbackurl=/start", permanent: false },
-    };
-  }
+type WordWithDetails = Prisma.WordGetPayload<{
+  include: { category: true; difficultyLevel: true };
+}>;
 
-  const { c, dl } = context.query;
-  const res = await fetch(
-    `https://guess-master.vercel.app/api/words/random?category=${c}&difficultyLevel=${dl}`
-  );
-  const data = await res.json();
-  const word: RandomWord = data.data;
-  return {
-    props: word,
-  };
-};
-
-export default function Play(props: RandomWord) {
+export default function Play() {
+  const [isLoading, setIsLoading] = useState(false);
   const [letters, setLetters] = useState(allLetters);
   const [playerLifes, setPlayerLifes] = useState(5);
   const [showHint, setShowHint] = useState(false);
   const [playerWin, setPlayerWin] = useState(false);
+  const [word, setWord] = useState<WordWithDetails>();
+  const [isFetchError, setIsFetchError] = useState(false);
+  const [fetchErrorMessage, setFetchErrorMessage] = useState("");
+
+  const { selectedCategory, selectedDifficultyLevel } = useContext(GameStoreContext);
 
   useEffect(() => {
     const resetLetters = () => {
@@ -75,24 +71,45 @@ export default function Play(props: RandomWord) {
         };
       });
     };
-
     setLetters(resetLetters());
-  }, [props]);
+
+    const fetchRandomWord = async () => {
+      setIsLoading(true);
+      const res = await fetch(
+        `http://localhost:3000/api/words/random?category=${selectedCategory.id}&difficultyLevel=${selectedDifficultyLevel.id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data: ApiResult = await res.json();
+      if (data) {
+        setIsFetchError(!data.success);
+        setFetchErrorMessage(data.message);
+        setWord(data.data);
+      }
+    };
+
+    fetchRandomWord().then(() => {
+      setIsLoading(false);
+    });
+  }, [selectedCategory.id, selectedDifficultyLevel.id]);
 
   const handleGuessLatter = (letter: string) => {
     setLetterAsGuessed();
 
-    if (!props.word.toLowerCase().includes(letter.toLowerCase())) setPlayerLifes(playerLifes - 1);
+    if (!word?.word.toLowerCase().includes(letter.toLowerCase())) setPlayerLifes(playerLifes - 1);
 
     setPlayerWin(checkPlayerWin());
 
     function checkPlayerWin() {
       const guessedLetters = letters.filter((l) => l.guessed);
-      if (props.word) {
-        for (let i = 0; i < props.word.length; i++) {
+      if (word!.word) {
+        for (let i = 0; i < word!.word.length; i++) {
           if (
             guessedLetters.findIndex(
-              (gl) => gl.char.toLowerCase() === props.word[i].toLowerCase()
+              (gl) => gl.char.toLowerCase() === word!.word[i].toLowerCase()
             ) <= -1
           )
             return false;
@@ -114,41 +131,45 @@ export default function Play(props: RandomWord) {
   };
 
   const handleShowHint = () => {
-    if (!showHint) {
-      setShowHint(true);
-    }
+    setShowHint(!showHint);
   };
 
   return (
     <>
       <LayoutMain>
-        <Header />
-        {playerLifes > 0 ? (
-          playerWin ? (
-            <Result win={true} selectedWord={props} />
-          ) : (
-            <>
-              <div className="flex justify-between items-center p-2 w-full md:w-1/2">
-                <PlayerLife remainingLifes={playerLifes} />
-                <WordHint
-                  description={props.description}
-                  handleShowHint={handleShowHint}
-                  showHint={showHint}
-                  playerLifes={playerLifes}
-                />
-              </div>
-              <WordGuess
-                selectedWord={props}
-                guessedLetters={letters.filter((l) => l.guessed)}
-                showHint={showHint}
-                category={props.categoryName as string}
-                difficultyLevel={props.difficultyLevelName as string}
-              />
-              <LetterGuesList letters={letters} handleGuessLatter={handleGuessLatter} />
-            </>
-          )
+        {isLoading ? (
+          <GmLoading text="The Game is Starting..." />
+        ) : isFetchError ? (
+          <AllWordsLearned message={fetchErrorMessage} />
         ) : (
-          <Result win={playerLifes > 0} selectedWord={props} />
+          word &&
+          (playerLifes > 0 ? (
+            playerWin ? (
+              <Result win={true} selectedWord={word} />
+            ) : (
+              <>
+                <div className="flex justify-between items-center p-2 w-full md:w-1/2">
+                  <PlayerLife remainingLifes={playerLifes} />
+                  <WordHint
+                    description={word!.description}
+                    handleShowHint={handleShowHint}
+                    showHint={showHint}
+                    playerLifes={playerLifes}
+                  />
+                </div>
+                <WordGuess
+                  selectedWord={word}
+                  guessedLetters={letters.filter((l) => l.guessed)}
+                  showHint={showHint}
+                  category={word!.category.name as string}
+                  difficultyLevel={word!.difficultyLevel.name as string}
+                />
+                <LetterGuesList letters={letters} handleGuessLatter={handleGuessLatter} />
+              </>
+            )
+          ) : (
+            <Result win={playerLifes > 0} selectedWord={word!} />
+          ))
         )}
       </LayoutMain>
     </>

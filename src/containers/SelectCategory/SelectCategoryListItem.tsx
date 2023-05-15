@@ -1,11 +1,11 @@
+import { useContext } from "react";
+
 import GmIcon from "@/components/GmIcon";
-import { Category } from "@/interfaces/interfaces";
+import { GameStoreContext } from "@/stores/common";
 
-type SelectCategoryListItemProps = {
-  category: Category;
-};
+export default function SelectCategoryListItem() {
+  const { selectedCategory } = useContext(GameStoreContext);
 
-export default function SelectCategoryListItem(props: SelectCategoryListItemProps) {
   const colorVariants = {
     orange: "bg-orange-200 text-orange-800",
     lime: "bg-lime-200 text-lime-800",
@@ -22,13 +22,13 @@ export default function SelectCategoryListItem(props: SelectCategoryListItemProp
     <>
       <div
         className={`flex flex-col items-center justify-between rounded-xl shadow py-2 px-5 gap-2 w-40 ${
-          colorVariants[props.category.baseColor]
+          colorVariants[selectedCategory.baseColor as keyof typeof colorVariants]
         }`}
       >
         <span className="text-2xl">
-          <GmIcon icon={props.category.icon} size={64} />
+          <GmIcon icon={selectedCategory.icon} size={64} />
         </span>
-        <span className="text-lg">{props.category.name}</span>
+        <span className="text-lg">{selectedCategory.name}</span>
       </div>
     </>
   );

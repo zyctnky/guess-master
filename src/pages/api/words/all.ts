@@ -2,11 +2,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient, Word } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
+import { WordLearned } from "@/interfaces/interfaces";
 
 type Data = {
   success: boolean;
   message: string;
-  data: Word;
+  data: WordLearned[];
 };
 
 const prisma = new PrismaClient();
@@ -21,42 +22,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         categoryId: category?.toString(),
         difficultyLevelId: difficultyLevel?.toString(),
       },
+      orderBy: [
+        {
+          word: "asc",
+        },
+      ],
       include: {
         category: true,
         difficultyLevel: true,
       },
     });
 
-    const filteredWordList: Word[] = wordList.filter(
-      (word) => word.learnedUsers.indexOf(session?.user?.email!) < 0
-    );
-
-    let word: Word = {
-      id: "",
-      categoryId: "",
-      description: "",
-      difficultyLevelId: "",
-      word: "",
-      learnedUsers: [],
-    };
-
-    if (filteredWordList.length <= 0)
-      return res.status(200).json({
-        success: false,
-        message:
-          "You have learned all the words in this category and difficulty level.",
-        data: word,
-      });
-
-    if (filteredWordList) {
-      var randomIndex = Math.floor(Math.random() * filteredWordList.length);
-      word = filteredWordList[randomIndex];
-    }
+    const newWordList = wordList.map((word) => {
+      if (word.learnedUsers.indexOf(session?.user?.email as string) >= 0) {
+        return {
+          word: word,
+          learned: true,
+        };
+      } else {
+        return {
+          word: { ...word, learnedUsers: [], description: "", word: "" },
+          learned: false,
+        };
+      }
+    });
 
     res.status(200).json({
       success: true,
       message: "",
-      data: word,
+      data: newWordList,
     });
   } catch (error) {
     console.log(error);
