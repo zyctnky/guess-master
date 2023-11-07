@@ -5,8 +5,6 @@ At the beginning of the game, the player selects the difficulty level and catego
 The player has 5 attempts to correctly guess the word.
 If the player can guess the word within these 5 attempts, they win the game.
 
-You can try the game by clicking [here](https://guess-master.vercel.app).
-
 In the future, I plan to implement several enhancements to Guess Master, which I will share with you below:
 
 - [x] To ensure the safety and security of the data, including words and categories, I will develop a backend structure for the game.
